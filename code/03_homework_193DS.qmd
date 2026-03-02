@@ -32,15 +32,52 @@ Both a Spearman's correlation and a Pearson's correlation test could determine t
 ```{r}
 #| label: visualization salinity x biomass
 #| message: false
-ggplot(salinity,
-       aes(x = salinity_mS_cm,
-           y = pickleweed)) +
-  geom_point(color = "forestgreen",
-             size = 1.7) +
-  labs(x = "Salinity (mS/cm)",
+salinity_lm <-lm(
+  pickleweed ~ salinity_mS_cm,
+  data = salinity)
+summary(salinity_lm)
+par(mfrow = c(2, 2))
+plot(salinity_lm)
+salinity_preds <- ggpredict(
+  salinity_lm,
+  terms = "salinity_mS_cm"
+)
+ggplot(data = salinity,
+        aes(x = salinity_mS_cm,
+            y = pickleweed)) +
+  geom_point(size = 4,
+             stroke = 1,
+             fill = "forestgreen",
+             shape = 21) +
+  geom_ribbon(data = salinity_preds,
+              aes(x = x,
+                  y = predicted,
+                  ymin = conf.low,
+                  ymax = conf.high),
+              alpha = 0.1) +
+  geom_line(data = salinity_preds,
+            aes(x = x,
+                y = predicted)) +
+  labs(x = "Salinity mS/cm",
        y = "Pickleweed biomass (g)",
        title = "As salinity increases, pickleweed biomass increases") +
-  theme_minimal()
+    theme_minimal()
 ```
 
+###c. Check your assumptions and run your test
+#### Running the test
+```{r}
+#| label: run test
+cor.test(salinity$pickleweed, salinity$salinity_mS_cm,
+         method = "pearson")
+```
 
+#### Check assumptions
+```{r}
+#| label: checking assumptions
+#| message: false
+par(mfrow = c(2, 2))
+plot(salinity_lm)
+```
+
+The assumptions checked for a Pearson correlation include normality by using a QQ plot to assess the linear relationship between the theoretical and sample quartiles, homoscedasticity with a residuals vs fitted and squared residuals vs fitted plot to check for constant variance amongs errors and an outlier plot. The QQ plot showed a linear relationship, indicating normality, similar to the constant variance plots that display fairly normal data with only a slight deviation at the tails. There were no perceived outliers.
