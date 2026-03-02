@@ -14,6 +14,7 @@ library(tidyverse) #load in packages
 library(here)
 library(janitor)
 library(readxl)
+library(ggeffects)
 salinity <- read.csv( #read in pickleweed data using here function
   here("data","salinity-pickleweed.csv"))
 reading_data <- read.csv( #read in personal data using here function
@@ -24,5 +25,22 @@ reading_data <- read.csv( #read in personal data using here function
 # Part 2 Problems
 ## Problem 1. Slough soil salinity
 
-### An appropriate test
+###a. An appropriate test
 Both a Spearman's correlation and a Pearson's correlation test could determine the relationship strength between salinity, a continuous predictor variable, and California pickleweed biomass, a continuous response variable. Pearson's correlation is a parametric test, meaning is assumes normality and uses the actual measurements of continuous data to show the strength and direction of a linear relationship. Meanwhile, Spearman's correlation uses ranks instead of the actual values to determine a monotonic relationship between variables, making it more suitable for non-normal distributions.
+
+### b. Creae a visualization
+```{r}
+#| label: visualization salinity x biomass
+#| message: false
+ggplot(salinity,
+       aes(x = salinity_mS_cm,
+           y = pickleweed)) +
+  geom_point(color = "forestgreen",
+             size = 1.7) +
+  labs(x = "Salinity (mS/cm)",
+       y = "Pickleweed biomass (g)",
+       title = "As salinity increases, pickleweed biomass increases") +
+  theme_minimal()
+```
+
+
