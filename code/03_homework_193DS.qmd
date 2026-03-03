@@ -18,7 +18,7 @@ library(ggeffects)
 salinity <- read.csv( #read in pickleweed data using here function
   here("data","salinity-pickleweed.csv"))
 reading_data <- read.csv( #read in personal data using here function
-  here("data", "reading_data_envs-193DS.csv")
+  here("data", "time_spent_reading.csv")
 )
 ```
 
@@ -131,7 +131,7 @@ ggplot(data = reading_data, #create plot with personal data
   geom_point(size = 3) + #add in individual data and adjust size
   labs(title = "Reading session per number of pages", #add title
        x = "Number of pages", #set x axis title
-       y = "Reading time",#set y axis title
+       y = "Reading time (min)",#set y axis title
        subtitle = "March 1, 2026") + 
   theme_classic() + #change theme
   scale_color_manual(values = c( #change colors manually
@@ -144,3 +144,13 @@ ggplot(data = reading_data, #create plot with personal data
     "News" = 15))
 ```
 
+### b. Captions
+Figure 1. Nonfiction novels consume the most reading time. Data was collected by the author. Bars represent 
+
+Figure 2. As the number of pages increases, reading time also increases. Points represent individual reading sessions with time of session (min) and number of pages recorded. Colors and shape represent the three types of reading genres (coral squares: News, green triangle: Nonfiction Novels, and blue circles: Research Papers). 
+
+# Problem 3. Affective visulization
+### a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences).
+For my personal data project I will paint the outer pages of a book different colors based on the genre and time spent reading each genre. To start I will sum the total reading time and compare that to the total number of pages in a book I buy to create a ratio of pages to minutes read. I can then determine how many pages I need to paint and what color to paint them. The final version of the visualization will be a book with fore-edge painting based on the amount of time I spent reading each genre. You should be able to visually tell relative time spent reading each genre and how the abundance changed over time.
+
+### b. 
