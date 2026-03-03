@@ -152,7 +152,7 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>salinity <span class="ot">&lt;-</span> <span class="fu">read.csv</span>( <span class="co">#read in pickleweed data using here function</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"salinity-pickleweed.csv"</span>))</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>reading_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>( <span class="co">#read in personal data using here function</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"reading_data_envs-193DS.csv"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"time_spent_reading.csv"</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="part-2-problems" class="level1">
@@ -329,7 +329,7 @@ sample estimates:
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="co">#add in individual data and adjust size</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Reading session per number of pages"</span>, <span class="co">#add title</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Number of pages"</span>, <span class="co">#set x axis title</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Reading time"</span>,<span class="co">#set y axis title</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Reading time (min)"</span>,<span class="co">#set y axis title</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"March 1, 2026"</span>) <span class="sc">+</span> </span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="co">#change theme</span></span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>( <span class="co">#change colors manually</span></span>
@@ -340,14 +340,38 @@ sample estimates:
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nonfiction Novels"</span> <span class="ot">=</span> <span class="dv">17</span>,</span>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Research Paper"</span> <span class="ot">=</span> <span class="dv">16</span>,</span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"News"</span> <span class="ot">=</span> <span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
-(`geom_point()`).</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="03_homework_193DS_files/figure-html/creating%20graphs-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="b.-captions" class="level3">
+<h3 class="anchored" data-anchor-id="b.-captions">b. Captions</h3>
+<p>Figure 1. Nonfiction novels consume the most reading time. Data was collected by the author. Bars represent</p>
+<p>Figure 2. As the number of pages increases, reading time also increases. Points represent individual reading sessions with time of session (min) and number of pages recorded. Colors and shape represent the three types of reading genres (coral squares: News, green triangle: Nonfiction Novels, and blue circles: Research Papers).</p>
+</section>
+</section>
+<section id="problem-3.-affective-visulization" class="level1">
+<h1>Problem 3. Affective visulization</h1>
+<section id="a.-describe-in-words-what-an-affective-visualization-could-look-like-for-your-personal-data-3-5-sentences." class="level3">
+<h3 class="anchored" data-anchor-id="a.-describe-in-words-what-an-affective-visualization-could-look-like-for-your-personal-data-3-5-sentences.">a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences).</h3>
+<p>For my personal data project I will paint the outer pages of a book different colors based on the genre and time spent reading each genre. To start I will sum the total reading time and compare that to the total number of pages in a book I buy to create a ratio of pages to minutes read. I can then determine how many pages I need to paint and what color to paint them. The final version of the visualization will be a book with fore-edge painting based on the amount of time I spent reading each genre. You should be able to visually tell relative time spent reading each genre and how the abundance changed over time.</p>
+</section>
+<section id="b.-create-a-sketch-on-paper-of-your-idea." class="level3">
+<h3 class="anchored" data-anchor-id="b.-create-a-sketch-on-paper-of-your-idea.">b. Create a sketch (on paper) of your idea.</h3>
+</section>
+<section id="b." class="level3">
+<h3 class="anchored" data-anchor-id="b.">b.</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">"data_vis_sketch.jpeg"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_vis_sketch.jpeg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
