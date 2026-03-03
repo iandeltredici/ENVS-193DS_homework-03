@@ -80,4 +80,67 @@ par(mfrow = c(2, 2))
 plot(salinity_lm)
 ```
 
-The assumptions checked for a Pearson correlation include normality by using a QQ plot to assess the linear relationship between the theoretical and sample quartiles, homoscedasticity with a residuals vs fitted and squared residuals vs fitted plot to check for constant variance amongs errors and an outlier plot. The QQ plot showed a linear relationship, indicating normality, similar to the constant variance plots that display fairly normal data with only a slight deviation at the tails. There were no perceived outliers.
+The assumptions checked for a Pearson correlation include normality by using a QQ plot to assess the linear relationship between the theoretical and sample quartiles, homoscedasticity with a residuals vs fitted and squared residuals vs fitted plot to check for constant variance among errors and an outlier plot. The QQ plot showed a linear relationship, indicating normality, similar to the constant variance plots that display fairly normal data with only a slight deviation at the tails. There were no perceived outliers.
+
+### d. Results communication
+To evaluate the strength of the relationship between pickleweed biomass and soil salinity, I used a Pearson correlation which found a moderate relationship between the two (Pearson's r = 0.53, t(21)= 2.90), p = 0.009, $\alpha$  = 0.05).
+
+### e. Test implications
+It appears that as salinity increases, so does pickleweed biomass, which indicates that pickleweed is a good species for sites like the slough that are high in salinity. Additionally, we can also advise the restoration team to plant pickleweed in sites with higher salinity in order to maximize growth. Knowing that pickleweed grows well in saline soils, we can prioritize these sites to create a buffer between less saline-tolerant plants.
+
+###f. Double check your own work
+```{r}
+#| label: run test (the other one)
+cor.test(salinity$pickleweed, salinity$salinity_mS_cm,
+         method = "spearman")
+```
+
+The Spearman's correlation shows a moderate relationship between pickleweed and soil salinity (Spearman ρ= 0.59, S= 824, p = 0.003, $\alpha$ = 0.05), supporting the decision to reject the null hypothesis from Pearson's correlation. Spearman's correlation indicates a monotonic relationship between salinity and pickleweed biomass. Because Spearman's correlation uses rank sums to calculate correlation it is more robust to outliers but cannot give a confidence interval around the actual relationship. 
+
+# Problem 2. Personal data
+### a. Updating your visualizations
+```{r}
+#| label: creating graphs
+#| message: false
+reading_data <- reading_data |>  #use reading data frame
+  clean_names() |> 
+  rename("reading_time" = "time_spent_reading_min",
+         "genre" = "reading_type")
+ggplot(data = reading_data,
+       aes(x = reading_time,
+           fill = genre)) + 
+  geom_histogram(bins = 6,
+                 color = "black") +
+  facet_wrap(~genre) +
+  scale_fill_manual(values = c(
+    "Nonfiction Novels" = "forestgreen",
+    "News" = "pink",
+    "Research Paper" = "darkorchid",
+    "Textbook" = "cadetblue2")) +
+  labs(title = "Time Spent Reading Different Genres", #set title
+       x = "Reading time (min)", #set x-axis
+       y = "count",#set y-axis
+       subtitle = "March 1, 2026") + 
+  theme(legend.position = "none") #remove legend
+
+ggplot(data = reading_data, #create plot with personal data
+       aes(x = number_of_pages,#set x axis
+           y = reading_time, #set y axis
+           color = genre, #separate by color and genre
+           shape = genre)) + #separate by shape and genre 
+  geom_point(size = 3) + #add in individual data and adjust size
+  labs(title = "Reading session per number of pages", #add title
+       x = "Number of pages", #set x axis title
+       y = "Reading time",#set y axis title
+       subtitle = "March 1, 2026") + 
+  theme_classic() + #change theme
+  scale_color_manual(values = c( #change colors manually
+    "Nonfiction Novels" = "darkgreen",
+    "Research Paper" = "darkorchid",
+    "News" = "coral2")) +
+  scale_shape_manual(values = c( #change shape manually
+    "Nonfiction Novels" = 17,
+    "Research Paper" = 16,
+    "News" = 15))
+```
+
