@@ -26,7 +26,7 @@ reading_data <- read.csv( #read in personal data using here function
 ## Problem 1. Slough soil salinity
 
 ###a. An appropriate test
-Both a Spearman's correlation and a Pearson's correlation test could determine the strength of relationship between salinity, a continuous predictor variable, and California pickleweed biomass, a continuous response variable. Pearson's correlation is a parametric test, meaning is assumes normality and uses the actual measurements of continuous data to show the strength and direction of a linear relationship. Meanwhile, Spearman's correlation uses ranks instead of the actual values to determine a monotonic relationship between variables, making it more suitable for non-normal distributions.
+Both a simple linear regression and a Pearson's correlation test could determine the strength of relationship between salinity, a continuous predictor variable, and California pickleweed biomass, a continuous response variable. Pearson's correlation is a parametric test, meaning is assumes normality and uses the actual measurements of continuous data to show the strength and direction of a linear relationship. Meanwhile, Spearman's correlation uses ranks instead of the actual values to determine a monotonic relationship between variables, making it more suitable for non-normal distributions.
 
 ### b. Creae a visualization
 ```{r}
@@ -60,7 +60,7 @@ cor.test(salinity$pickleweed, salinity$salinity_mS_cm,
          method = "pearson")
 ```
 
-#### Check assumptions
+#### Check your assumptions
 ```{r}
 #| label: checking assumptions
 #| message: false
@@ -149,6 +149,11 @@ knitr::include_graphics(here("code", "data_vis_sketch.jpeg")) #insert image of s
 ```
 
 ### c. Create a draft of your visualization.
+```{r}
+#| label: data vis draft
+#| message: false
+knitr::include_graphics(here("code", "data_vis_draft.jpeg")) #insert image of sketch
+```
 
 ### d. Write an artistic statement
 My data visualization showcases my reading habits by painting the fore-edge of a book different colors based on the different genres. In other words, each stripe on the book represents the genre and time spent reading each genre.
