@@ -26,7 +26,7 @@ reading_data <- read.csv( #read in personal data using here function
 ## Problem 1. Slough soil salinity
 
 ###a. An appropriate test
-Both a Spearman's correlation and a Pearson's correlation test could determine the relationship strength between salinity, a continuous predictor variable, and California pickleweed biomass, a continuous response variable. Pearson's correlation is a parametric test, meaning is assumes normality and uses the actual measurements of continuous data to show the strength and direction of a linear relationship. Meanwhile, Spearman's correlation uses ranks instead of the actual values to determine a monotonic relationship between variables, making it more suitable for non-normal distributions.
+Both a Spearman's correlation and a Pearson's correlation test could determine the strength of relationship between salinity, a continuous predictor variable, and California pickleweed biomass, a continuous response variable. Pearson's correlation is a parametric test, meaning is assumes normality and uses the actual measurements of continuous data to show the strength and direction of a linear relationship. Meanwhile, Spearman's correlation uses ranks instead of the actual values to determine a monotonic relationship between variables, making it more suitable for non-normal distributions.
 
 ### b. Creae a visualization
 ```{r}
@@ -38,30 +38,18 @@ salinity_lm <-lm(
 summary(salinity_lm)
 par(mfrow = c(2, 2))
 plot(salinity_lm)
-salinity_preds <- ggpredict(
-  salinity_lm,
-  terms = "salinity_mS_cm"
-)
-ggplot(data = salinity,
-        aes(x = salinity_mS_cm,
-            y = pickleweed)) +
-  geom_point(size = 4,
-             stroke = 1,
-             fill = "forestgreen",
-             shape = 21) +
-  geom_ribbon(data = salinity_preds,
-              aes(x = x,
-                  y = predicted,
-                  ymin = conf.low,
-                  ymax = conf.high),
-              alpha = 0.1) +
-  geom_line(data = salinity_preds,
-            aes(x = x,
-                y = predicted)) +
-  labs(x = "Salinity mS/cm",
+ggpredict(salinity_lm,
+          terms = "salinity_mS_cm [0.1:9.6 by = 0.01]") |>
+  plot(show_data = FALSE,
+       color = "lightgreen") +
+  geom_point(data = salinity,
+             aes(x = salinity_mS_cm,
+                 y = pickleweed),
+             color = "darkgreen") +
+  theme_minimal() +
+  labs(x = "Salinity (mS/cm)",
        y = "Pickleweed biomass (g)",
-       title = "As salinity increases, pickleweed biomass increases") +
-    theme_minimal()
+       title = "As salinity increases, pickleweed biomass increases")
 ```
 
 ###c. Check your assumptions and run your test
@@ -154,12 +142,19 @@ Figure 2. As the number of pages increases, reading time also increases. Points 
 For my personal data project I will paint the outer pages of a book different colors based on the genre and time spent reading each genre. To start I will sum the total reading time and compare that to the total number of pages in a book I buy to create a ratio of pages to minutes read. I can then determine how many pages I need to paint and what color to paint them. The final version of the visualization will be a book with fore-edge painting based on the amount of time I spent reading each genre. You should be able to visually tell relative time spent reading each genre and how the abundance changed over time.
 
 ### b.  Create a sketch (on paper) of your idea.
-
-
-### b. 
 ```{r}
 #| label: data vis sketch
 #| message: false
-knitr::include_graphics("data_vis_sketch.jpeg")
+knitr::include_graphics(here("code", "data_vis_sketch.jpeg")) #insert image of sketch
 ```
 
+### c. Create a draft of your visualization.
+
+### d. Write an artistic statement
+My data visualization showcases my reading habits by painting the fore-edge of a book different colors based on the different genres. In other words, each stripe on the book represents the genre and time spent reading each genre.
+
+I was influenced heavily by the warming stripes visualization shown in class that depicts the average temperature of each year since 1850. I've also seen very detailed fore-edge painting of a book which inspired me to combine the two ideas into one. 
+
+The work will be created using acrylic paints on a physical book.
+
+To start, I created a ratio of minutes read to physical pages and translated. 
