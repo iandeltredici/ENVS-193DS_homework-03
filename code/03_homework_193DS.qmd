@@ -145,7 +145,7 @@ For my personal data project I will paint the outer pages of a book different co
 ```{r}
 #| label: data vis sketch
 #| message: false
-#| out-height: 15%
+#| out-width: 50%
 knitr::include_graphics(here("code", "data_vis_sketch.jpeg")) #insert image of sketch
 ```
 
@@ -153,6 +153,7 @@ knitr::include_graphics(here("code", "data_vis_sketch.jpeg")) #insert image of s
 ```{r}
 #| label: data vis draft
 #| message: false
+#| out-width: 50%
 knitr::include_graphics(here("code", "data_vis_draft.jpeg")) #insert image of sketch
 ```
 

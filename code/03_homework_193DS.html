@@ -159,7 +159,7 @@ window.Quarto = {
 <h1>Part 2 Problems</h1>
 <section id="problem-1.-slough-soil-salinity" class="level2">
 <h2 class="anchored" data-anchor-id="problem-1.-slough-soil-salinity">Problem 1. Slough soil salinity</h2>
-<p>###a. An appropriate test Both a Spearman’s correlation and a Pearson’s correlation test could determine the relationship strength between salinity, a continuous predictor variable, and California pickleweed biomass, a continuous response variable. Pearson’s correlation is a parametric test, meaning is assumes normality and uses the actual measurements of continuous data to show the strength and direction of a linear relationship. Meanwhile, Spearman’s correlation uses ranks instead of the actual values to determine a monotonic relationship between variables, making it more suitable for non-normal distributions.</p>
+<p>###a. An appropriate test Both a simple linear regression and a Pearson’s correlation test could determine the strength of relationship between salinity, a continuous predictor variable, and California pickleweed biomass, a continuous response variable. Pearson’s correlation is a parametric test, meaning is assumes normality and uses the actual measurements of continuous data to show the strength and direction of a linear relationship. Meanwhile, Spearman’s correlation uses ranks instead of the actual values to determine a monotonic relationship between variables, making it more suitable for non-normal distributions.</p>
 <section id="b.-creae-a-visualization" class="level3">
 <h3 class="anchored" data-anchor-id="b.-creae-a-visualization">b. Creae a visualization</h3>
 <div class="cell">
@@ -196,30 +196,18 @@ F-statistic: 8.398 on 1 and 21 DF,  p-value: 0.008605</code></pre>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>salinity_preds <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  salinity_lm,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">terms =</span> <span class="st">"salinity_mS_cm"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> salinity,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> salinity_mS_cm,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> pickleweed)) <span class="sc">+</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">stroke =</span> <span class="dv">1</span>,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"forestgreen"</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> salinity_preds,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x,</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y =</span> predicted,</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymin =</span> conf.low,</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ymax =</span> conf.high),</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> salinity_preds,</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> x,</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> predicted)) <span class="sc">+</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity mS/cm"</span>,</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Pickleweed biomass (g)"</span>,</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"As salinity increases, pickleweed biomass increases"</span>) <span class="sc">+</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(salinity_lm,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">terms =</span> <span class="st">"salinity_mS_cm [0.1:9.6 by = 0.01]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">show_data =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"lightgreen"</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> salinity,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> salinity_mS_cm,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> pickleweed),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"darkgreen"</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (mS/cm)"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Pickleweed biomass (g)"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"As salinity increases, pickleweed biomass increases"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -246,8 +234,8 @@ sample estimates:
 0.5344778 </code></pre>
 </div>
 </div>
-<section id="check-assumptions" class="level4">
-<h4 class="anchored" data-anchor-id="check-assumptions">Check assumptions</h4>
+<section id="check-your-assumptions" class="level4">
+<h4 class="anchored" data-anchor-id="check-your-assumptions">Check your assumptions</h4>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(salinity_lm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -363,19 +351,36 @@ sample estimates:
 </section>
 <section id="b.-create-a-sketch-on-paper-of-your-idea." class="level3">
 <h3 class="anchored" data-anchor-id="b.-create-a-sketch-on-paper-of-your-idea.">b. Create a sketch (on paper) of your idea.</h3>
-</section>
-<section id="b." class="level3">
-<h3 class="anchored" data-anchor-id="b.">b.</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">"data_vis_sketch.jpeg"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">"code"</span>, <span class="st">"data_vis_sketch.jpeg"</span>)) <span class="co">#insert image of sketch</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_vis_sketch.jpeg" class="img-fluid figure-img"></p>
+<p><img src="data_vis_sketch.jpeg" class="img-fluid figure-img" style="width:50.0%"></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="c.-create-a-draft-of-your-visualization." class="level3">
+<h3 class="anchored" data-anchor-id="c.-create-a-draft-of-your-visualization.">c.&nbsp;Create a draft of your visualization.</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">here</span>(<span class="st">"code"</span>, <span class="st">"data_vis_draft.jpeg"</span>)) <span class="co">#insert image of sketch</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_vis_draft.jpeg" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="d.-write-an-artistic-statement" class="level3">
+<h3 class="anchored" data-anchor-id="d.-write-an-artistic-statement">d.&nbsp;Write an artistic statement</h3>
+<p>My data visualization showcases my reading habits by painting the fore-edge of a book different colors based on the different genres. In other words, each stripe on the book represents the genre and time spent reading each genre.</p>
+<p>I was influenced heavily by the warming stripes visualization shown in class that depicts the average temperature of each year since 1850. I’ve also seen very detailed fore-edge painting of a book which inspired me to combine the two ideas into one.</p>
+<p>The work will be created using acrylic paints on a physical book.</p>
+<p>To start, I created a ratio of minutes read to physical pages and translated.</p>
 </section>
 </section>
 
