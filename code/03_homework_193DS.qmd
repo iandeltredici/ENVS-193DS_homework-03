@@ -88,12 +88,17 @@ The Spearman's correlation shows a moderate relationship between pickleweed and 
 # Problem 2. Personal data
 ### a. Updating your visualizations
 ```{r}
-#| label: creating graphs
+#| label: cleaning data frame
 #| message: false
 reading_data <- reading_data |>  #use reading data frame
   clean_names() |> 
   rename("reading_time" = "time_spent_reading_min",
          "genre" = "reading_type")
+```
+
+```{r}
+#| label: creating graphs
+#| message: false
 ggplot(data = reading_data,
        aes(x = reading_time,
            fill = genre)) + 
@@ -103,39 +108,35 @@ ggplot(data = reading_data,
   scale_fill_manual(values = c(
     "Nonfiction Novels" = "forestgreen",
     "News" = "pink",
-    "Research Paper" = "darkorchid",
-    "Textbook" = "cadetblue2")) +
+    "Research Paper" = "darkorchid")) +
   labs(title = "Time Spent Reading Different Genres", #set title
        x = "Reading time (min)", #set x-axis
-       y = "count",#set y-axis
+       y = "Count",#set y-axis
        subtitle = "March 1, 2026") + 
   theme(legend.position = "none") #remove legend
 
 ggplot(data = reading_data, #create plot with personal data
        aes(x = number_of_pages,#set x axis
            y = reading_time, #set y axis
-           color = genre, #separate by color and genre
-           shape = genre)) + #separate by shape and genre 
+           color = genre)) + #separate by color and genre
   geom_point(size = 3) + #add in individual data and adjust size
   labs(title = "Reading session per number of pages", #add title
        x = "Number of pages", #set x axis title
        y = "Reading time (min)",#set y axis title
        subtitle = "March 1, 2026") + 
-  theme_classic() + #change theme
+  theme_gray() + #change theme
   scale_color_manual(values = c( #change colors manually
     "Nonfiction Novels" = "darkgreen",
     "Research Paper" = "darkorchid",
     "News" = "coral2")) +
-  scale_shape_manual(values = c( #change shape manually
-    "Nonfiction Novels" = 17,
-    "Research Paper" = 16,
-    "News" = 15))
+  facet_wrap(~genre) +
+  theme(legend.position = "none")
 ```
 
 ### b. Captions
-Figure 1. Nonfiction novels consume the most reading time. Data was collected by the author. Bars represent 
+**Figure 1. Nonfiction novels consume the most reading time. Data was collected by the author.** The height of the bars represents how many reading sessions lasted the corresponding time length within each genre. Genres are separated by panels and defined by different colors (pink: News, green: Nonfiction Novels, purple: Research Paper). Data was collected from January 6, 2026 to March 1, 2026 by Ian Del Tredici. 
 
-Figure 2. As the number of pages increases, reading time also increases. Points represent individual reading sessions with time of session (min) and number of pages recorded. Colors and shape represent the three types of reading genres (coral squares: News, green triangle: Nonfiction Novels, and blue circles: Research Papers). 
+**Figure 2. As the number of pages increases, reading time also increases.** Points represent individual reading sessions with time of session (min) and number of pages recorded. Colors represent the three types of reading genres (coral: News, green: Nonfiction Novels, and blue: Research Paper). Panels also divide genres. Data collected from January 6, 2026 to March 1, 2026 by Ian Del Tredici. 
 
 # Problem 3. Affective visulization
 ### a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences).
@@ -164,4 +165,10 @@ I was influenced heavily by the warming stripes visualization shown in class tha
 
 The work will be created using acrylic paints on a physical book.
 
-To start, I created a ratio of minutes read to physical pages and translated. 
+To start, I created a ratio of minutes read to physical pages and used that to map my data set onto a physical book. Using those marking to delineate the number of pages that needed to be painted for each reading session, I used acrylic paints to carefully paint according to the genre. Each of the 31 reading sessions was painted across the depth of the book, creating a myriad of colorful stripes that visually show the most common genre of reading I did.
+
+### e. Prep your materials to share in class
+[Google slides](https://docs.google.com/presentation/d/1AHTPlw0NANjdVbw2Ea0nYsnRrkLqPET7iSmSy-w6sb8/edit?slide=id.g3ccafcfad53_0_1465#slide=id.g3ccafcfad53_0_1465)
+
+# Problem 4 Statistical critique
+### a. Revist and summarize
