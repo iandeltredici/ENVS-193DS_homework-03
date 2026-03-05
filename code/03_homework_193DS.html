@@ -9,7 +9,7 @@
 <meta name="author" content="Ian Del Tredici">
 <meta name="dcterms.date" content="2026-03-05">
 
-<title>03_homework_193DS</title>
+<title>Homework #3 ENV S 193DS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -152,7 +152,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">03_homework_193DS</h1>
+<h1 class="title">Homework #3 ENV S 193DS</h1>
 </div>
 
 
@@ -249,7 +249,7 @@ F-statistic: 8.398 on 1 and 21 DF,  p-value: 0.008605</code></pre>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Salinity (mS/cm)"</span>, <span class="co">#change x axis title</span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Pickleweed biomass (g)"</span>, <span class="co">#change y axis title</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"As salinity increases, pickleweed biomass increases"</span>) <span class="co">#change plot title</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>salinity_vis</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>salinity_vis <span class="co">#display plot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -343,8 +343,8 @@ sample estimates:
 <h3 class="anchored" data-anchor-id="a.-updating-your-visualizations">a. Updating your visualizations</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>reading_data <span class="ot">&lt;-</span> reading_data <span class="sc">|&gt;</span>  <span class="co">#use reading data frame</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"reading_time"</span> <span class="ot">=</span> <span class="st">"time_spent_reading_min"</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> <span class="co">#clean column names</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"reading_time"</span> <span class="ot">=</span> <span class="st">"time_spent_reading_min"</span>, <span class="co">#rename columns</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">"genre"</span> <span class="ot">=</span> <span class="st">"reading_type"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
@@ -468,7 +468,7 @@ sample estimates:
 </section>
 <section id="b.-visual-clarity" class="level3">
 <h3 class="anchored" data-anchor-id="b.-visual-clarity">b. Visual Clarity</h3>
-<p>The authors represent the data on a x-axis that follows a logical Likert scale from Completely Disagree to Completely Agree, while the y axis is constrained to only 0.5 to 0.64% to accentuate the slope. There are no individual data points or indication of sample size, confidence interval size or even slope statistics. This plot is solely focused on communicating a directional trend but omits any individual data points or statistics that may give more information about the nature of that trend.</p>
+<p>The authors represent the data on a x-axis that follows a logical Likert scale from Completely Disagree to Completely Agree, while the y axis is constrained to only 0.5 to 0.64 to accentuate the slope. There are no individual data points or indication of sample size, confidence interval size or even slope statistics. This plot is solely focused on communicating a directional trend but omits any individual data points or statistics that may give more information about the nature of that trend.</p>
 </section>
 <section id="c.-aesthetic-clarity" class="level3">
 <h3 class="anchored" data-anchor-id="c.-aesthetic-clarity">c.&nbsp;Aesthetic clarity</h3>

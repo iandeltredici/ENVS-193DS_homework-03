@@ -56,7 +56,7 @@ salinity_vis <- ggpredict(salinity_lm, #create visualization with linear regress
   labs(x = "Salinity (mS/cm)", #change x axis title
        y = "Pickleweed biomass (g)", #change y axis title
        title = "As salinity increases, pickleweed biomass increases") #change plot title
-salinity_vis
+salinity_vis #display plot
 ```
 
 ### c. Check your assumptions and run your test
@@ -103,8 +103,8 @@ The Spearman's correlation shows a moderate relationship between pickleweed and 
 #| label: cleaning data frame
 #| message: false
 reading_data <- reading_data |>  #use reading data frame
-  clean_names() |> 
-  rename("reading_time" = "time_spent_reading_min",
+  clean_names() |> #clean column names
+  rename("reading_time" = "time_spent_reading_min", #rename columns
          "genre" = "reading_type")
 ```
 
@@ -201,7 +201,7 @@ knitr::include_graphics(here("code", "stat_critique_1.png")) #insert image of sk
 ```
 
 ### b. Visual Clarity
-The authors represent the data on a x-axis that follows a logical Likert scale from Completely Disagree to Completely Agree, while the y axis is constrained to only 0.5 to 0.64% to accentuate the slope. There are no individual data points or indication of sample size, confidence interval size or even slope statistics. This plot is solely focused on communicating a directional trend but omits any individual data points or statistics that may give more information about the nature of that trend.
+The authors represent the data on a x-axis that follows a logical Likert scale from Completely Disagree to Completely Agree, while the y axis is constrained to only 0.5 to 0.64 to accentuate the slope. There are no individual data points or indication of sample size, confidence interval size or even slope statistics. This plot is solely focused on communicating a directional trend but omits any individual data points or statistics that may give more information about the nature of that trend.
 
 ### c. Aesthetic clarity
 The authors completely removed almost all visual clutter, choosing to depict only the logistic regression line between the points with a shaded confidence interval. In terms of clarity this plot is extremely simple and showcases a clear trend between agreement about God allow humans to destroy the Earth and belief in anthropogenic climate change. The data:ink ratio is fairly high but it's hard to say there's much data or ink at all in this plot because only 4 data points are represented and confusingly connected across Likert options.
