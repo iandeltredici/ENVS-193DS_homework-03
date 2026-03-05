@@ -174,3 +174,19 @@ To start, I created a ratio of minutes read to physical pages and used that to m
 
 # Problem 4 Statistical critique
 ### a. Revist and summarize
+The authors use a linear regression model to determine if believe in human or divine control predicts climate concern, climate policy support, and human responsibility. The predictor variable is the level of agreement with the statement that "God would not allow humans to destroy the Earth" while the response variable is level of agreement with statements about climate concern, human responsibility, and support for climate policies. This linear regression, shows how supported the predictor variable (belief in divine.human) is by the response variable (concern, support, responsibility) which directly applies to their main research question about how belief relates to climate perceptions. A significant result would indicate that a person's belief about who controls Earth's climate is significantly related to their environmental concern and could potentially predict it.
+
+```{r}
+#| label: figure
+#| echo: false
+#| message: false
+knitr::include_graphics(here("code", "stat_critique_1.png")) #insert image of sketch
+```
+
+###b. Visual Clarity
+The authors represent the data on a x-axis that follows a logical Likert scale from Completely Disagree to Completely Agree, while the y axis is constrained to only 0.5 to 0.64% to accentuate the slope. There are no individual data points or indication of sample size, confidence interval size or even slope statistics. This plot is solely focused on communicating a directional trend but omits any individual data points or statistics that may give more information about the nature of that trend.
+
+###c. Aesthetic clarity
+The authors completely removed almost all visual clutter, choosing to depict only the logistic regression line between the points with a shaded confidence interval. In terms of clarity this plot is extremely simple and showcases a clear trend between agreement about God allow humans to destroy the Earth and belief in anthropogenic climate change. The data:ink ratio is fairly high but it's hard to say there's much data or ink at all in this plot because only 4 data points are represented and confusingly connected across Likert options.
+
+###d. Recommendations
