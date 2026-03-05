@@ -1,8 +1,8 @@
 ---
-title: "03_homework_193DS"
+title: "Homework #3 ENV S 193DS"
 author: "Ian Del Tredici"
 date: "03-05-2026"
-format: html
+format:
   html:
     toc: TRUE
 execute:
@@ -30,9 +30,9 @@ reading_data <- read.csv( #read in personal data using here function
 ## Problem 1. Slough soil salinity
 
 ### a. An appropriate test
-Both Spearman's correlation and Pearson's correlation test could determine the strength of relationship between salinity, a continuous predictor variable, and California pickleweed biomass, a continuous response variable. Pearson's correlation is a parametric test, meaning is assumes normality and uses the actual measurements of continuous data to show the strength, which is most likely the best test for this dataset. Meanwhile, Spearman's correlation uses ranks instead of the actual values to determine a monotonic relationship between variables, making it more suitable for non-normal distributions.
+Both Spearman's correlation and Pearson's correlation test could determine the strength of relationship between salinity, a continuous predictor variable, and California pickleweed biomass, a continuous response variable. Pearson's correlation is a parametric test, meaning is assumes normality and uses the actual measurements of continuous data to show the strength, which is most likely the best test for this dataset. Meanwhile, Spearman's correlation uses ranks instead of the actual values to determine a monotonic relationship between variables, making it more suitable for non-normal distributions with heavy outliers.
 
-### b. Creae a visualization
+### b. Create a visualization
 ```{r}
 #| label: visualization salinity x biomass
 #| message: false
@@ -56,6 +56,7 @@ salinity_vis <- ggpredict(salinity_lm, #create visualization with linear regress
   labs(x = "Salinity (mS/cm)", #change x axis title
        y = "Pickleweed biomass (g)", #change y axis title
        title = "As salinity increases, pickleweed biomass increases") #change plot title
+salinity_vis
 ```
 
 ### c. Check your assumptions and run your test
@@ -64,7 +65,7 @@ salinity_vis <- ggpredict(salinity_lm, #create visualization with linear regress
 ```{r}
 #| label: checking assumptions
 #| message: false
-ggplot(data = salinity, #create plot with salinity dateframe
+ggplot(data = salinity, #create plot with salinity date frame
        aes(sample = pickleweed)) + #sample is pickleweed
   geom_qq_line(color = "red3", #create QQ line and set color to red
                linewidth = 1) + #set line width
@@ -82,7 +83,7 @@ cor.test(salinity$pickleweed, salinity$salinity_mS_cm, #run pearson's correlatio
 Normal distribution and a linear relationship between the variables are the main assumptions to check with a Pearson's correlation so I created a QQ plot and referenced the previous linear model. The QQ plot showed a fairly linear relationship between the sample and theoretical quartiles with only slight deviations at the tails, indicating normality, while the simple linear model atop a scatterplot of the data showed a positive linear relationship between salinity and pickleweed biomass. Continuous variables are evident in by the data collected (biomass and salinity exist on an infinitely precise number line) but independent observations is unclear due to lack of methods.
 
 ### d. Results communication
-To evaluate the strength of the relationship between pickleweed biomass and soil salinity, I used a Pearson correlation which found a moderate relationship between the two variables (Pearson's r = 0.53, t(21)= 2.90), p = 0.009, $\alpha$  = 0.05). Therefore pickleweed biomass and soil salinity are 53% correlated in a positive direction. 
+To evaluate the strength of the relationship between pickleweed biomass and soil salinity, I used a Pearson correlation which found a moderate relationship between the two variables (Pearson's r = 0.53, t(21)= 2.90), p = 0.009, $\alpha$  = 0.05). The significant p value (p =0.09) shows that pickleweed biomass and soil salinity are 53% correlated in a positive direction. 
 
 ### e. Test implications
 It appears that as salinity increases, so does pickleweed biomass, which indicates that pickleweed is a good species for sites like the slough that are high in salinity. Additionally, we can also advise the restoration team to plant pickleweed in sites with higher salinity in order to maximize growth. Knowing that pickleweed grows well in saline soils, we can prioritize these sites to create a buffer between less saline-tolerant plants.
@@ -94,7 +95,7 @@ cor.test(salinity$pickleweed, salinity$salinity_mS_cm, #run a spearman's correla
          method = "spearman")
 ```
 
-The Spearman's correlation shows a moderate relationship between pickleweed and soil salinity (Spearman ρ= 0.59, S= 824, p = 0.003, $\alpha$ = 0.05), supporting the decision to reject the null hypothesis from Pearson's correlation and suggesting that 59% of pickleweed biomass can be explained by salinity. Spearman's correlation indicates a monotonic relationship between salinity and pickleweed biomass. Because Spearman's correlation uses rank sums to calculate correlation it is more robust to outliers and non-normal datasets, which is helpful when unsure about normality, but it cannot give a confidence interval around the actual relationship. 
+The Spearman's correlation shows a moderate relationship between pickleweed and soil salinity (Spearman ρ= 0.59, S= 824, p = 0.003, $\alpha$ = 0.05), supporting the decision to reject the null hypothesis from Pearson's correlation and suggesting that pickleweed biomass and salinity are 59% correlated. Spearman's correlation indicates a monotonic relationship between salinity and pickleweed biomass but does not assume a linear relationship. Because Spearman's correlation uses rank sums to calculate correlation it is more robust to outliers and non-normal data sets, which is helpful when unsure about normality or noncontinuous data, but it cannot give a confidence interval around the actual relationship. 
 
 # Problem 2. Personal data
 ### a. Updating your visualizations
@@ -124,8 +125,11 @@ ggplot(data = reading_data, #create base layer with personal data
        x = "Genre", #x axis title
        y = "Time spent reading (min)", #y axis title
        subtitle = "March 1, 2026") + #subtitle
-  theme_minimal() #set theme to minimal
-
+  theme_minimal() + #set theme to minimal
+  scale_color_manual(values = c( #change colors manually
+    "Nonfiction Novels" = "darkgreen",
+    "Research Paper" = "darkorchid",
+    "News" = "coral2"))
 ```
 
 ```{r}
@@ -155,7 +159,7 @@ ggplot(data = reading_data, #create plot with personal data
 
 # Problem 3. Affective visulization
 ### a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences).
-For my personal data project I will paint the outer pages of a book different colors based on the genre and time spent reading each genre. To start I will sum the total reading time and compare that to the total number of pages in a book I buy to create a ratio of pages to minutes read. I can then determine how many pages I need to paint and what color to paint them. The final version of the visualization will be a book with fore-edge painting based on the amount of time I spent reading each genre. You should be able to visually tell relative time spent reading each genre and how the abundance changed over time.
+For my personal data project I will paint the outer pages of a book different colors based on the genre and time spent reading each genre. To start I will sum the total reading time and compare that to the total number of pages in a book to create a ratio of pages to minutes read. I can then determine how many pages I need to paint and what color to paint them. The final version of the visualization will be a book with fore-edge painting based on the amount of time I spent reading each genre. You should be able to visually tell relative time spent reading each genre and if the proportion changed over time.
 
 ### b.  Create a sketch (on paper) of your idea.
 ```{r}
@@ -203,4 +207,4 @@ The authors represent the data on a x-axis that follows a logical Likert scale f
 The authors completely removed almost all visual clutter, choosing to depict only the logistic regression line between the points with a shaded confidence interval. In terms of clarity this plot is extremely simple and showcases a clear trend between agreement about God allow humans to destroy the Earth and belief in anthropogenic climate change. The data:ink ratio is fairly high but it's hard to say there's much data or ink at all in this plot because only 4 data points are represented and confusingly connected across Likert options.
 
 ### d. Recommendations
-The first thing I'd reccommend is to redo the entire test because makes no sense to run a linear regression using data from a Likert Scale. Portraying a line between the four options on the x-axis implies a valid spectrum between them which does not exist. The confidence interval should only be around each of the four points as well. A better plot would only include the four points at each x axis option with confidence intervals extending as lines from each.
+The first thing I'd recommend is to redo the entire test because makes no sense to run a linear regression using data from a Likert Scale. Portraying a line between the four options on the x-axis implies a valid spectrum between them which does not exist. The confidence interval should only be around each of the four points as well. A better plot would only include the four points at each x axis option with confidence intervals extending as lines from each.
