@@ -18,8 +18,7 @@ library(ggeffects)
 salinity <- read.csv( #read in pickleweed data using here function
   here("data","salinity-pickleweed.csv"))
 reading_data <- read.csv( #read in personal data using here function
-  here("data", "time_spent_reading.csv")
-)
+  here("data", "time_spent_reading.csv"))
 ```
 
 # Part 2 Problems
@@ -32,33 +31,29 @@ Both a simple linear regression and a Pearson's correlation test could determine
 ```{r}
 #| label: visualization salinity x biomass
 #| message: false
-salinity_lm <-lm(
-  pickleweed ~ salinity_mS_cm,
-  data = salinity)
-summary(salinity_lm)
-par(mfrow = c(2, 2))
-plot(salinity_lm)
-ggpredict(salinity_lm,
-          terms = "salinity_mS_cm [0.1:9.6 by = 0.01]") |>
-  plot(show_data = FALSE,
-       color = "lightgreen") +
-  geom_point(data = salinity,
-             aes(x = salinity_mS_cm,
-                 y = pickleweed),
-             color = "darkgreen") +
-  theme_minimal() +
-  labs(x = "Salinity (mS/cm)",
-       y = "Pickleweed biomass (g)",
-       title = "As salinity increases, pickleweed biomass increases")
+salinity_lm <-lm( #create new object with linear model function
+  pickleweed ~ salinity_mS_cm, #set response and predictor variables
+  data = salinity) #use salinity data set
+summary(salinity_lm) #display summary of salinity_lm model
+
+par(mfrow = c(2, 2)) #plot assumption graphs in a 2x2 display
+plot(salinity_lm) #run assumptions test for linear model
+
+ggpredict(salinity_lm, #create visualization with linear regression
+          terms = "salinity_mS_cm [0.1:9.6 by = 0.01]") |> #define scope of linear regression and CI
+  plot(show_data = FALSE, #don't show background data using ggpredict
+       color = "lightgreen") + #set color of CI
+  geom_point(data = salinity, #add in data points from salinity dataframe
+             aes(x = salinity_mS_cm, #set x axis
+                 y = pickleweed), #set y axis
+             color = "darkgreen") + #set color of points
+  theme_minimal() + #change theme
+  labs(x = "Salinity (mS/cm)", #change x axis title
+       y = "Pickleweed biomass (g)", #change y axis title
+       title = "As salinity increases, pickleweed biomass increases") #change plot title
 ```
 
 ###c. Check your assumptions and run your test
-#### Running the test
-```{r}
-#| label: run test
-cor.test(salinity$pickleweed, salinity$salinity_mS_cm,
-         method = "pearson")
-```
 
 #### Check your assumptions
 ```{r}
@@ -68,10 +63,17 @@ par(mfrow = c(2, 2))
 plot(salinity_lm)
 ```
 
-The assumptions checked for a Pearson correlation include normality by using a QQ plot to assess the linear relationship between the theoretical and sample quartiles, homoscedasticity with a residuals vs fitted and squared residuals vs fitted plot to check for constant variance among errors and an outlier plot. The QQ plot showed a linear relationship, indicating normality, similar to the constant variance plots that display fairly normal data with only a slight deviation at the tails. There were no perceived outliers.
+#### Running the test
+```{r}
+#| label: run test
+cor.test(salinity$pickleweed, salinity$salinity_mS_cm, #run pearson's correlation between pickleweed biomass and salinity
+         method = "pearson")
+```
+
+Normal distribution and a linear relationship between the variables are the main assumptions to check with a Pearson's correlation so I created a QQ plot and referenced the previous linear model. The QQ plot showed a linear relationship between the sample and theoretical quartiles with only a slight deviation at the tails, indicating normality, while the simple linear model atop a scatterplot of data showed a positive linear relationship between salinity and pickleweed biomass. Continuous variables is evident in by the data collected (biomass and salinity exist on an infinitely precise number line) but independent observations is unclear due to lack of methods.
 
 ### d. Results communication
-To evaluate the strength of the relationship between pickleweed biomass and soil salinity, I used a Pearson correlation which found a moderate relationship between the two (Pearson's r = 0.53, t(21)= 2.90), p = 0.009, $\alpha$  = 0.05).
+To evaluate the strength of the relationship between pickleweed biomass and soil salinity, I used a Pearson correlation which found a moderate relationship between the two (Pearson's r = 0.53, t(21)= 2.90), p = 0.009, $\alpha$  = 0.05). Therefore 53% of pickleweed biomass can be explained by soil salinity and as salinity increases, so does pickleweed biomass.
 
 ### e. Test implications
 It appears that as salinity increases, so does pickleweed biomass, which indicates that pickleweed is a good species for sites like the slough that are high in salinity. Additionally, we can also advise the restoration team to plant pickleweed in sites with higher salinity in order to maximize growth. Knowing that pickleweed grows well in saline soils, we can prioritize these sites to create a buffer between less saline-tolerant plants.
@@ -79,11 +81,11 @@ It appears that as salinity increases, so does pickleweed biomass, which indicat
 ###f. Double check your own work
 ```{r}
 #| label: run test (the other one)
-cor.test(salinity$pickleweed, salinity$salinity_mS_cm,
+cor.test(salinity$pickleweed, salinity$salinity_mS_cm, #run a spearman's correlation on salinity and pickleweed biomass
          method = "spearman")
 ```
 
-The Spearman's correlation shows a moderate relationship between pickleweed and soil salinity (Spearman ρ= 0.59, S= 824, p = 0.003, $\alpha$ = 0.05), supporting the decision to reject the null hypothesis from Pearson's correlation. Spearman's correlation indicates a monotonic relationship between salinity and pickleweed biomass. Because Spearman's correlation uses rank sums to calculate correlation it is more robust to outliers but cannot give a confidence interval around the actual relationship. 
+The Spearman's correlation shows a moderate relationship between pickleweed and soil salinity (Spearman ρ= 0.59, S= 824, p = 0.003, $\alpha$ = 0.05), supporting the decision to reject the null hypothesis from Pearson's correlation and suggesting that 59% of pickleweed biomass can be explained by salinity. Spearman's correlation indicates a monotonic relationship between salinity and pickleweed biomass. Because Spearman's correlation uses rank sums to calculate correlation it is more robust to outliers and non-normal datasets, which is helpful when unsure about normality, but it cannot give a confidence interval around the actual relationship. 
 
 # Problem 2. Personal data
 ### a. Updating your visualizations
@@ -99,13 +101,13 @@ reading_data <- reading_data |>  #use reading data frame
 ```{r}
 #| label: creating graphs
 #| message: false
-ggplot(data = reading_data,
-       aes(x = reading_time,
-           fill = genre)) + 
-  geom_histogram(bins = 6,
-                 color = "black") +
-  facet_wrap(~genre) +
-  scale_fill_manual(values = c(
+ggplot(data = reading_data, #create base layer with personal data
+       aes(x = reading_time, #set x axis
+           fill = genre)) +  #color by genere
+  geom_histogram(bins = 6, #create histogram with 6 bins
+                 color = "black") + #set border color
+  facet_wrap(~genre) + #separate by genre
+  scale_fill_manual(values = c( #change colors of genres
     "Nonfiction Novels" = "forestgreen",
     "News" = "pink",
     "Research Paper" = "darkorchid")) +
@@ -129,8 +131,8 @@ ggplot(data = reading_data, #create plot with personal data
     "Nonfiction Novels" = "darkgreen",
     "Research Paper" = "darkorchid",
     "News" = "coral2")) +
-  facet_wrap(~genre) +
-  theme(legend.position = "none")
+  facet_wrap(~genre) + #separate by genre
+  theme(legend.position = "none") #remove legend
 ```
 
 ### b. Captions
