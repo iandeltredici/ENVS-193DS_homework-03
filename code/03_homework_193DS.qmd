@@ -36,22 +36,13 @@ Both Spearman's correlation and Pearson's correlation test could determine the s
 ```{r}
 #| label: visualization salinity x biomass
 #| message: false
-salinity_lm <-lm( #create new object with linear model function
-  pickleweed ~ salinity_mS_cm, #set response and predictor variables
-  data = salinity) #use salinity data set
-summary(salinity_lm) #display summary of salinity_lm model
-
-par(mfrow = c(2, 2)) #plot assumption graphs in a 2x2 display
-plot(salinity_lm) #run assumptions test for linear model
-
-salinity_vis <- ggpredict(salinity_lm, #create visualization with linear regression and new object
-          terms = "salinity_mS_cm [0.1:9.6 by = 0.01]") |> #define scope of linear regression and CI
-  plot(show_data = FALSE, #don't show background data using ggpredict
-       color = "lightgreen") + #set color of CI
+salinity_vis <- ggplot(salinity, #create plot using salinity data frame
+                       aes(x = salinity_mS_cm, #set x and y axis
+                           y = pickleweed)) +
   geom_point(data = salinity, #add in data points from salinity dataframe
              aes(x = salinity_mS_cm, #set x axis
                  y = pickleweed), #set y axis
-             color = "darkgreen") + #set color of points
+             color = "green") + #set color of points
   theme_minimal() + #change theme
   labs(x = "Salinity (mS/cm)", #change x axis title
        y = "Pickleweed biomass (g)", #change y axis title
@@ -65,12 +56,19 @@ salinity_vis #display plot
 ```{r}
 #| label: checking assumptions
 #| message: false
-ggplot(data = salinity, #create plot with salinity date frame
+pickleweed_qq <- ggplot(data = salinity, #create plot with salinity date frame
        aes(sample = pickleweed)) + #sample is pickleweed
   geom_qq_line(color = "red3", #create QQ line and set color to red
                linewidth = 1) + #set line width
   geom_qq() #create QQ plot
-salinity_vis #display linear regression model from previous
+salinity_qq <- ggplot(data = salinity, #create plot with salinity date frame
+       aes(sample = salinity_mS_cm)) + #sample is salinity
+  geom_qq_line(color = "red3", #create QQ line and set color to red
+               linewidth = 1) + #set line width
+  geom_qq() #create QQ plot
+pickleweed_qq #view QQ plots
+salinity_qq
+salinity_vis #display scatterplot from previous
 ```
 
 #### Running the test
@@ -80,7 +78,7 @@ cor.test(salinity$pickleweed, salinity$salinity_mS_cm, #run pearson's correlatio
          method = "pearson")
 ```
 
-Normal distribution and a linear relationship between the variables are the main assumptions to check with a Pearson's correlation so I created a QQ plot and referenced the previous linear model. The QQ plot showed a fairly linear relationship between the sample and theoretical quartiles with only slight deviations at the tails, indicating normality, while the simple linear model atop a scatterplot of the data showed a positive linear relationship between salinity and pickleweed biomass. Continuous variables are evident in by the data collected (biomass and salinity exist on an infinitely precise number line) but independent observations is unclear due to lack of methods.
+Normal distribution and a linear relationship between the variables are the main assumptions to check with a Pearson's correlation so I created a QQ plot for each variable and referenced the previous scatterplot to assume linearity. The pickleweed biomass and salinity both appear to be normally distributed because most of the points on the QQ plot align along a linear relationship with the theoretically normal sample, while the scatterplot of the data showed a positive linear relationship between salinity and pickleweed biomass. Continuous variables are evident in by the data collected (biomass and salinity exist on an infinitely precise number line) but independent observations is unclear due to lack of methods.
 
 ### d. Results communication
 To evaluate the strength of the relationship between pickleweed biomass and soil salinity, I used a Pearson correlation which found a moderate relationship between the two variables (Pearson's r = 0.53, t(21)= 2.90), p = 0.009, $\alpha$  = 0.05). The significant p value (p =0.09) shows that pickleweed biomass and soil salinity are 53% correlated in a positive direction. 
@@ -95,7 +93,7 @@ cor.test(salinity$pickleweed, salinity$salinity_mS_cm, #run a spearman's correla
          method = "spearman")
 ```
 
-The Spearman's correlation shows a moderate relationship between pickleweed and soil salinity (Spearman ρ= 0.59, S= 824, p = 0.003, $\alpha$ = 0.05), supporting the decision to reject the null hypothesis from Pearson's correlation and suggesting that pickleweed biomass and salinity are 59% correlated. Spearman's correlation indicates a monotonic relationship between salinity and pickleweed biomass but does not assume a linear relationship. Because Spearman's correlation uses rank sums to calculate correlation it is more robust to outliers and non-normal data sets, which is helpful when unsure about normality or noncontinuous data, but it cannot give a confidence interval around the actual relationship. 
+The Spearman's correlation shows a moderate relationship between pickleweed and soil salinity (Spearman ρ= 0.59, S= 824, p = 0.003, $\alpha$ = 0.05), supporting the decision from Pearson's correlation to reject the null hypothesis of the study and suggesting that pickleweed biomass and salinity are 59% correlated. Spearman's correlation indicates a positive monotonic relationship between salinity and pickleweed biomass with a coefficient of 0.59 while Pearson's correlation indicates a positive linear relationship with a coefficient of 0.53. Both coefficients fall within the range of moderate strength but because Spearman's correlation uses rank sums to calculate correlation it is more robust to outliers and non-normal data sets, which is helpful when unsure about normality or noncontinuous data, but it cannot give a confidence interval around the actual relationship. 
 
 # Problem 2. Personal data
 ### a. Updating your visualizations
